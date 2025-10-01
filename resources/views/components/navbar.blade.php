@@ -9,9 +9,42 @@
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
               <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
-              <a href="/" aria-current="page" class="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white">Dashboard</a>
-              <a href="/profil" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Contact</a>
-              <a href="/kontak" class="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-white/5 hover:text-white">Profil</a>
+
+              <x-navlink href="/" :active="request()->is('/')">
+                Home
+              </x-navlink>
+
+              <x-navlink href="/profil" :active="request()->is('profil')">
+                Profil
+              </x-navlink>
+
+              <x-navlink href="/kontak" :active="request()->is('kontak')">
+                Kontak
+              </x-navlink>
+
+              <x-navlink href="/student" :active="request()->is('student')">
+                Student
+              </x-navlink>
+
+              <x-navlink href="/guardian" :active="request()->is('guardian')">
+                Guardian
+              </x-navlink>
+
+              <x-navlink href="/classroom" :active="request()->is('classroom')">
+                Classroom
+              </x-navlink>
+
+
+              <!-- <a href="/profil" 
+                 class="{{ request()->is('profil') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium">
+                 Profil
+              </a> -->
+
+              <!-- <a href="/kontak" 
+                class="{{ request()->is('kontak') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium">
+                 Kontak
+              </a> -->
+
             </div>
           </div>
         </div>

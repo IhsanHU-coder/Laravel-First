@@ -4,7 +4,9 @@
     <title>Profil</title>
 </head>
 <body>
+    
     <x-layout>
+    <x-slot:judul>profil</x-slot:judul>
     <h1>Profil Saya</h1>
     <p>Nama: {{ $nama }}</p>
     <p>Kelas: {{ $kelas }}</p>
