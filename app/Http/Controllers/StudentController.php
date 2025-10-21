@@ -40,10 +40,12 @@ class StudentController extends Controller
         // 'address' => 'Ciputat'],
         // ];
 
-        $students = Student::all();
+         $students = Student::all();
+        //$students = Student::with('classroom')->get();
+        
 
         return view('student', [
-        'judul' => 'Student',
+        'judul' => 'students',
         'students' => $students
         ]);
     }

@@ -10,8 +10,9 @@ class ClassRoom extends Model
     /** @use HasFactory<\Database\Factories\ClassRoomFactory> */
     use HasFactory;
 
-    protected $table = 'class_rooms';
+    //protected $table = 'class_rooms';
     protected $fillable = ['name'];
+    protected $with = ['students'];
 
     public function students(){
         return $this->hasMany(Student::class, 'classroom_id');

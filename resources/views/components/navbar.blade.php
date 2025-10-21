@@ -42,6 +42,10 @@
                 Subject
               </x-navlink>
 
+              <x-navlink href="/dashboard" :active="request()->is('dashboard')">
+                Dashboard
+              </x-navlink>
+
 
               <!-- <a href="/profil" 
                  class="{{ request()->is('profil') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium">

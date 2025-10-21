@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     @vite('resources/css/app.css')
+    {{-- @vite(['resouces/css/app.css', 'resources/js/app.js']) --}}
+    @vite('resources/js/app.js')
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
 </head>
