@@ -1,4 +1,4 @@
-<x-layout>
+<x-admin.components.layout>
   <x-slot:judul>Classroom</x-slot:judul>
 
   <h1 class="text-2xl font-bold mb-4">Daftar Classroom</h1>
@@ -11,7 +11,7 @@
       </tr>
     </thead>
     <tbody>
-        @foreach ($classrooms as $classroom)
+        @foreach ($class_rooms as $classroom)
       <tr class = "odd:bg-white even:bg-gray-50 hover:bg-gray-100 transition">
         <td class="border px-4 py-2">{{ $loop->iteration }}</td>
         <td class="border px-4 py-2">{{ $classroom["name"] }}</td>
@@ -24,4 +24,4 @@
       @endforeach
     </tbody>
   </table>
-</x-layout>
+</x-admin.components.layout>

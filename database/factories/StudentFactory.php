@@ -19,7 +19,7 @@ class StudentFactory extends Factory
     {
         
         return [
-            'nama' => fake() ->name(), // Nama lengkap
+            'name' => fake() ->name(), // Nama lengkap
             'birthday' => fake()->date('Y-m-d', '2010-01-01'), // Tanggal lahir (format Y-m-d)
             'classroom_id' => ClassRoom::factory(),
             // 'grade' => fake()->randomElement([

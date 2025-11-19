@@ -42,7 +42,7 @@
                 Subject
               </x-navlink>
 
-              <x-navlink href="/dashboard" :active="request()->is('dashboard')">
+              <x-navlink href="/admin/dashboard" :active="request()->is('admin/dashboard')">
                 Dashboard
               </x-navlink>
 

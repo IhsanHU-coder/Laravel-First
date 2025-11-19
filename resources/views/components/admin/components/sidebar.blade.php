@@ -7,7 +7,7 @@
     <ul class="space-y-2 font-medium">
 
       {{-- Dashboard --}}
-      <x-admin.components.sidelink href="/dashboard" :active="request()->is('dashboard')">
+      <x-admin.components.sidelink href="/components/admin/dashboard" :active="request()->is('/components/admin/dashboard')">
         <x-slot name="icon">
           <svg class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 
               group-hover:text-gray-900 dark:group-hover:text-white" 
@@ -20,7 +20,7 @@
       </x-admin.components.sidelink>
 
       {{-- Students --}}
-      <x-admin.components.sidelink href="/student" :active="request()->is('student')">
+      <x-admin.components.sidelink href="/admin/student" :active="request()->is('admin/student')">
         <x-slot name="icon">
           <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 
               group-hover:text-gray-900 dark:group-hover:text-white" 
@@ -45,8 +45,8 @@
         Teachers
       </x-admin.components.sidelink>
 
-      {{-- Classrooms --}}
-      <x-admin.components.sidelink href="/classroom" :active="request()->is('classroom')">
+      {{-- class_rooms --}}
+      <x-admin.components.sidelink href="/admin/classrooms" :active="request()->is('admin/classrooms')">
         <x-slot name="icon">
           <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 
               group-hover:text-gray-900 dark:group-hover:text-white" 
@@ -55,7 +55,7 @@
             <path d="M4 3h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm1 2v10h10V5H5Z"/>
           </svg>
         </x-slot>
-        Classrooms
+        class_rooms
       </x-admin.components.sidelink>
 
       {{-- Subjects --}}
@@ -83,6 +83,7 @@
         </x-slot>
         Guardians
       </x-admin.components.sidelink>
+
 
       {{-- Logout --}}
       <x-admin.components.sidelink href="/" :active="request()->is('/')">

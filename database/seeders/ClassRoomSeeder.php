@@ -6,13 +6,13 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\ClassRoom;
 
-class ClassRoomSeeder extends Seeder
+class class_roomseeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        ClassRoom::factory()->count(5)->create();
+        // ClassRoom::factory()->count(5)->create();
     }
 }

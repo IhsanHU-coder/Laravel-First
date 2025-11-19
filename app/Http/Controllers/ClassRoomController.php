@@ -9,13 +9,14 @@ class ClassRoomController extends Controller
 {
     public function index()
     {
-         $classrooms = ClassRoom::all();
-        //$classrooms = ClassRoom::with('students')->get();
+         $class_rooms = ClassRoom::all();
+        //$class_rooms = ClassRoom::with('students')->get();
+        $title = 'Classroom List';
         
 
         return view('classroom', [
         'judul' => 'classroom',
-        'classrooms' => $classrooms
+        'class_rooms' => $class_rooms
         ]);
     }
 }

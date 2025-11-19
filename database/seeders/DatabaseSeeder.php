@@ -23,14 +23,14 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         ClassRoom::factory(5)
-            ->hasStudents(5)
+            ->hasStudents()
             ->create();
-        Subject::factory(5)
-            ->hasTeachers(1)
-            ->create();
-        Teacher::factory(5)
-        ->hasSubject(1)
-        ->create();
+        // Subject::factory(5)
+        //     ->hasTeachers(1)
+        //     ->create();
+        // Teacher::factory(5)
+        // ->hasSubject(1)
+        // ->create();
 
     }
 }
