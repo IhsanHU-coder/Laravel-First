@@ -6,44 +6,18 @@
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                 <div x-data="{
                     openAddModal: false,
-                    openEditModal: false,
                     openDeleteModal: false,
-                    deleteUrl: '',
-                    editUrl: '',
-                    editName: ''
+                    deleteUrl: ''
                     }">
 
-                    <div
-                        x-show="openDeleteModal"
-                        x-transition
-                        class="fixed inset-0 flex items-center justify-center bg-black/50 z-50"
-                    >
-                        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg w-full max-w-md p-6 relative">
-                            <!-- ... isi modal ... -->
-                            <form
-                                :action="deleteUrl"
-                                method="POST"
-                            >
-                                @csrf
-                                @method('DELETE')
-                                <button
-                                    type="submit"
-                                    class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:ring-red-300 dark:bg-red-500"
-                                >
-                                    Yes, I'm sure
-                                </button>
-                            </form>
-                            <!-- ... sisa modal ... -->
-                        </div>
-                    </div>
-                    
                     <x-admin.menu-table
-                        button-label="Add Classroom"
+                        button-label="Add Student"
                         on-click="openAddModal = true"
                     />
 
-                    {{-- Modal --}}
-                    <div x-show="openAddModal"  x-transition class="fixed inset-0 flex items-center justify-center bg-black/50 z-50" >
+
+                    <div x-show="openAddModal"  x-transition class="fixed inset-0 flex items-center    
+                    justify-center bg-black/50 z-50" >
                         <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg w-full max-w-2xl p-6 relative" >
                             {{-- Tombol close --}}
                             <button
@@ -53,54 +27,39 @@
                                 ✕
                             </button>
 
-                            {{-- Include form --}}
-                        @include('admin.classroom.create')
+
+                            @include('admin.student.create', ['class_rooms' => $class_rooms])
 
                         </div>
                     </div>
+                    {{-- @include('admin.student.delete') --}}
+                    {{-- </div> --}}
 
-
-<div x-show="openEditModal" x-transition class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg w-full max-w-2xl p-6 relative">
-
-        <button
-            @click="openEditModal = false"
-            class="absolute top-2 right-3 text-gray-400 hover:text-gray-600"
-        >
-            ✕
-        </button>
-
-        @include('admin.classroom.edit')
-
-    </div>
-</div>
-
-
-                {{-- </div> --}}
-
-                <div class="overflow-x-auto">
+                    <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="px-4 py-3">#</th>
-                                <th scope="col" class="px-4 py-3">Room Name</th>
-                                <th scope="col" class="px-4 py-3">Students List</th>
+                                <th scope="col" class="px-4 py-3">ID</th>
+                                <th scope="col" class="px-4 py-3">Nama</th>
+                                <th scope="col" class="px-4 py-3">Birthday</th>
+                                <th scope="col" class="px-4 py-3">Class</th>
+                                <th scope="col" class="px-4 py-3">Email</th>
+                                <th scope="col" class="px-4 py-3">Address</th>
                                 <th scope="col" class="px-4 py-3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($class_rooms as $classroom)
+                            @foreach ($students as $student)
                             <tr class="border-b dark:border-gray-700">
                                 <td class="px-4 py-3">{{$loop->iteration}}</td>
-                                <td class="px-4 py-3">{{ $classroom->name }}</td>
-                                <td class="px-4 py-3">
-                                    @foreach ($classroom->students as $student)
-                                        {{ $student->name }} <br>
-                                    @endforeach
-                                </td>
+                                <td class="px-4 py-3">{{ $student->name  }}</td>
+                                <td class="px-4 py-3">{{ $student->birthday  }}</td>
+                                <td class="px-4 py-3">{{ $student->classroom->name }}</td>
+                                <td class="px-4 py-3">{{ $student->email }}</td>
+                                <td class="px-4 py-3">{{ $student->address }}</td>
                                 <td class="px-4 py-3 flex items-center justify-end">
                                     @php
-                                        $dropdownId = 'classroom-dropdown-' . $classroom->id;
+                                        $dropdownId = 'student-dropdown-' . $student->id;
                                         $buttonId = $dropdownId . '-button';
                                     @endphp
 
@@ -115,33 +74,15 @@
                                                 <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
                                             </li> --}}
                                             <li>
-                                                <button
-    @click="
-        openEditModal = true;
-        editUrl = '{{ route('class_rooms.update', $classroom->id) }}';
-        editName = {{ json_encode($classroom->name) }};
-    "
-    class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
->
-    Edit
-</button>
-
-
-
-
-
-
-
-
-
+                                                <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                             </li>
                                         </ul>
-                                        {{-- <div class="py-1">
+                                        <div class="py-1">
                                             <button
                                                 @click="
                                                 openDeleteModal = true;
                                                 
-                                                deleteUrl = '{{ route('class_rooms.destroy', $classroom->id) }}';
+                                                deleteUrl = '{{ route('students.destroy', $student->id) }}';
                                                     
                                                 "
                                                 class="block w-full text-left py-2 px-4 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
@@ -149,17 +90,24 @@
                                             >
                                                 Delete
                                             </button>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    @include('admin.classroom.delete')
-                </div>
-                
+                    
+                    </div>
+
+                    <div class="p-4">
+                    {{ $students->links() }}
+                    </div>
+                    @include('admin.student.delete')
             </div>
         </div>
     </section>
+
+    
+
 </x-admin.components.layout>

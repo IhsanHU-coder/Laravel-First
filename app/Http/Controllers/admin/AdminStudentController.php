@@ -67,17 +67,33 @@ class AdminStudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function edit($id)
+{
+    $student = Student::findOrFail($id);
+    $class_rooms = ClassRoom::all();
+
+    return view('admin.student.edit', compact('student', 'class_rooms'));
+}
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function update(Request $request, $id)
+{
+    $student = Student::findOrFail($id);
+
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'classroom_id' => 'required|exists:class_rooms,id',
+            'birthday' => 'nullable|date',
+            'email' => 'required|email|unique:students,email,'.$student->id,
+            'address' => 'nullable|string|max:500',
+        ]);
+
+        $student->update($data);
+
+        return redirect()->route('students.index')->with('success', 'Student updated successfully.');
     }
 
     /**

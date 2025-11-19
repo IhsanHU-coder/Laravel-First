@@ -49,4 +49,23 @@ class AdminClassRoomController extends Controller
         return redirect()->route('class_rooms.index')->with('success', 'Data berhasil dihapus !');
     }
 
+    public function edit(ClassRoom $classroom)
+{
+    return view('admin.classroom.edit', [
+        'classroom' => $classroom
+    ]);
+}
+
+public function update(Request $request, ClassRoom $classroom)
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+    ]);
+
+    $classroom->update($validated);
+
+    return redirect()->back()->with('success', 'Classroom updated successfully!');
+}
+
+
 }

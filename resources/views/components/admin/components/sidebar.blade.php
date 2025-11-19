@@ -19,32 +19,50 @@
         Dashboard
       </x-admin.components.sidelink>
 
-      {{-- Students --}}
-      <x-admin.components.sidelink href="/admin/student" :active="request()->is('admin/student')">
-        <x-slot name="icon">
-          <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 
-              group-hover:text-gray-900 dark:group-hover:text-white" 
-              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" 
-              viewBox="0 0 20 20">
-            <path d="M10 2a5 5 0 1 1-5 5 5.006 5.006 0 0 1 5-5Zm0 8a7 7 0 0 0-7 7 1 1 0 0 0 1 1h12a1 1 0 0 0 1-1 7 7 0 0 0-7-7Z"/>
-          </svg>
-        </x-slot>
-        Students
-      </x-admin.components.sidelink>
+      <button type="button"
+                            class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
+                            <svg aria-hidden="true"
+                                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap">Pages</span>
+                            <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+<ul id="dropdown-pages" class="hidden py-2 space-y-1">
+      
+    <li>
 
-      {{-- Teachers --}}
-      <x-admin.components.sidelink href="/teacher" :active="request()->is('teacher')">
-        <x-slot name="icon">
-          <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 
-              group-hover:text-gray-900 dark:group-hover:text-white" 
-              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" 
-              viewBox="0 0 20 20">
-            <path d="M10 2a5 5 0 1 1-5 5 5.006 5.006 0 0 1 5-5Zm0 8a7 7 0 0 0-7 7 1 1 0 0 0 1 1h12a1 1 0 0 0 1-1 7 7 0 0 0-7-7Z"/>
-          </svg>
-        </x-slot>
-        Teachers
-      </x-admin.components.sidelink>
-
+      <button type="button"
+                            class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            aria-controls="dropdown-pages-student" data-collapse-toggle="dropdown-pages-student">
+                            <svg aria-hidden="true"
+                                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap">Student Data</span>
+                            <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                      
+<ul id="dropdown-pages-student" class="hidden py-2 space-y-1">
+      
+    <li>
       {{-- class_rooms --}}
       <x-admin.components.sidelink href="/admin/classrooms" :active="request()->is('admin/classrooms')">
         <x-slot name="icon">
@@ -57,7 +75,49 @@
         </x-slot>
         class_rooms
       </x-admin.components.sidelink>
+    </li>
 
+    <li>
+      {{-- Students --}}
+      <x-admin.components.sidelink href="/admin/student" :active="request()->is('admin/student')">
+        <x-slot name="icon">
+          <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 
+              group-hover:text-gray-900 dark:group-hover:text-white" 
+              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" 
+              viewBox="0 0 20 20">
+            <path d="M10 2a5 5 0 1 1-5 5 5.006 5.006 0 0 1 5-5Zm0 8a7 7 0 0 0-7 7 1 1 0 0 0 1 1h12a1 1 0 0 0 1-1 7 7 0 0 0-7-7Z"/>
+          </svg>
+        </x-slot>
+        Students
+      </x-admin.components.sidelink>
+    </li>
+  </ul>
+  </li>
+
+  <li>
+
+      <button type="button"
+                            class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                            aria-controls="dropdown-pages-teacher" data-collapse-toggle="dropdown-pages-teacher">
+                            <svg aria-hidden="true"
+                                class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                                fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                            <span class="flex-1 ml-3 text-left whitespace-nowrap">Teacher Data</span>
+                            <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"></path>
+                            </svg>
+                        </button>
+                      
+<ul id="dropdown-pages-teacher" class="hidden py-2 space-y-1">
+
+    <li>
       {{-- Subjects --}}
       <x-admin.components.sidelink href="/subject" :active="request()->is('subject')">
         <x-slot name="icon">
@@ -70,7 +130,26 @@
         </x-slot>
         Subjects
       </x-admin.components.sidelink>
+    </li>
 
+    <li>
+    {{-- Teachers --}}
+      <x-admin.components.sidelink href="/teacher" :active="request()->is('teacher')">
+        <x-slot name="icon">
+          <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 
+              group-hover:text-gray-900 dark:group-hover:text-white" 
+              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" 
+              viewBox="0 0 20 20">
+            <path d="M10 2a5 5 0 1 1-5 5 5.006 5.006 0 0 1 5-5Zm0 8a7 7 0 0 0-7 7 1 1 0 0 0 1 1h12a1 1 0 0 0 1-1 7 7 0 0 0-7-7Z"/>
+          </svg>
+        </x-slot>
+        Teachers
+      </x-admin.components.sidelink>
+    </li>
+  </ul>
+</li>
+
+    <li>
       {{-- Guardian --}}
       <x-admin.components.sidelink href="/subject" :active="request()->is('subject')">
         <x-slot name="icon">
@@ -83,7 +162,8 @@
         </x-slot>
         Guardians
       </x-admin.components.sidelink>
-
+    </li>
+  </ul>
 
       {{-- Logout --}}
       <x-admin.components.sidelink href="/" :active="request()->is('/')">

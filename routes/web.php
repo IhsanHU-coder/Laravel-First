@@ -68,12 +68,19 @@
 
     Route::get('/admin/student', [AdminStudentController::class, 'index'])->name('students.index');
     Route::post('admin/student', [AdminStudentController::class, 'store'])->name('students.store');
+    Route::get('/admin/students/{student}/edit', [AdminStudentController::class, 'edit'])->name('students.edit');
+
+    Route::put('/admin/students/{student}', [AdminStudentController::class, 'update'])->name('students.update');
+
+
     Route::delete('admin/students/{student}', [AdminStudentController::class, 'destroy'])->name('students.destroy');
 
 
 
     Route::get('/admin/classrooms', [AdminClassroomController::class, 'index'])->name('class_rooms.index');
     Route::post('admin/classrooms', [AdminClassroomController::class, 'store'])->name('class_rooms.store');
+    Route::get('/admin/classrooms/{classroom}/edit', [AdminClassroomController::class, 'edit'])->name('class_rooms.edit');
+    Route::put('/admin/classrooms/{classroom}', [AdminClassroomController::class, 'update'])->name('class_rooms.update');
     Route::delete('admin/classrooms/{classroom}', [AdminClassroomController::class, 'destroy'])->name('class_rooms.destroy');
 
     // Route::prefix('/components')->name('/components.')->group(function () {

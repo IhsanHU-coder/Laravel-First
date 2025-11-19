@@ -6,11 +6,8 @@
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                 <div x-data="{
                     openAddModal: false,
-                    openEditModal: false,
                     openDeleteModal: false,
-                    deleteUrl: '',
-                    editUrl: '',
-                    editName: ''
+                    deleteUrl: ''
                     }">
 
                     <div
@@ -58,24 +55,6 @@
 
                         </div>
                     </div>
-
-
-<div x-show="openEditModal" x-transition class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg w-full max-w-2xl p-6 relative">
-
-        <button
-            @click="openEditModal = false"
-            class="absolute top-2 right-3 text-gray-400 hover:text-gray-600"
-        >
-            ✕
-        </button>
-
-        @include('admin.classroom.edit')
-
-    </div>
-</div>
-
-
                 {{-- </div> --}}
 
                 <div class="overflow-x-auto">
@@ -115,25 +94,7 @@
                                                 <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
                                             </li> --}}
                                             <li>
-                                                <button
-    @click="
-        openEditModal = true;
-        editUrl = '{{ route('class_rooms.update', $classroom->id) }}';
-        editName = {{ json_encode($classroom->name) }};
-    "
-    class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
->
-    Edit
-</button>
-
-
-
-
-
-
-
-
-
+                                                <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
                                             </li>
                                         </ul>
                                         {{-- <div class="py-1">
