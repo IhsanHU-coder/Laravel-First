@@ -10,7 +10,7 @@ class Subject extends Model
     /** @use HasFactory<\Database\Factories\SubjectFactory> */
     use HasFactory;
 
-    //protected $table = 'class_rooms';
+    protected $table = 'subjects';
     protected $fillable = ['name'];
 
     public function teachers(){

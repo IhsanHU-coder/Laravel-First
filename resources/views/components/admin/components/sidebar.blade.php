@@ -7,7 +7,7 @@
     <ul class="space-y-2 font-medium">
 
       {{-- Dashboard --}}
-      <x-admin.components.sidelink href="/components/admin/dashboard" :active="request()->is('/components/admin/dashboard')">
+      <x-admin.components.sidelink href="/admin/dashboard" :active="request()->is('/admin/dashboard')">
         <x-slot name="icon">
           <svg class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 
               group-hover:text-gray-900 dark:group-hover:text-white" 
@@ -18,6 +18,34 @@
         </x-slot>
         Dashboard
       </x-admin.components.sidelink>
+
+      {{-- Profile --}}
+      <x-admin.components.sidelink href="/admin/profile" :active="request()->is('/admin/profile')">
+        <x-slot name="icon">
+          <svg class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 
+              group-hover:text-gray-900 dark:group-hover:text-white" 
+              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" 
+              viewBox="0 0 22 21">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM8.5 15v-4H5v4Zm8-3.5v3.5H9v-3.5Zm-6-4V7h6v.5Zm8.5 6.5h1.5V9.5H17ZM9 5h8V3H9Z"/>
+          </svg>
+        </x-slot>
+        Profile
+      </x-admin.components.sidelink>
+
+      {{-- Dashboard --}}
+      <x-admin.components.sidelink href="/admin/kontak" :active="request()->is('/admin/kontak')">
+        <x-slot name="icon">
+          <svg class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 
+              group-hover:text-gray-900 dark:group-hover:text-white" 
+              aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" 
+              viewBox="0 0 22 21">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM8.5 15v-4H5v4Zm8-3.5v3.5H9v-3.5Zm-6-4V7h6v.5Zm8.5 6.5h1.5V9.5H17ZM9 5h8V3H9Z"/>
+          </svg>
+        </x-slot>
+        Kontak
+      </x-admin.components.sidelink>
+
+
 
       <button type="button"
                             class="flex items-center p-2 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -119,7 +147,7 @@
 
     <li>
       {{-- Subjects --}}
-      <x-admin.components.sidelink href="/subject" :active="request()->is('subject')">
+      <x-admin.components.sidelink href="/admin/subject" :active="request()->is('admin/subject')">
         <x-slot name="icon">
           <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 
               group-hover:text-gray-900 dark:group-hover:text-white" 
@@ -134,7 +162,7 @@
 
     <li>
     {{-- Teachers --}}
-      <x-admin.components.sidelink href="/teacher" :active="request()->is('teacher')">
+      <x-admin.components.sidelink href="/admin/teacher" :active="request()->is('admin/teacher')">
         <x-slot name="icon">
           <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 
               group-hover:text-gray-900 dark:group-hover:text-white" 
@@ -151,7 +179,7 @@
 
     <li>
       {{-- Guardian --}}
-      <x-admin.components.sidelink href="/subject" :active="request()->is('subject')">
+      <x-admin.components.sidelink href="/admin/guardian" :active="request()->is('/admin/guardian')">
         <x-slot name="icon">
           <svg class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 
               group-hover:text-gray-900 dark:group-hover:text-white" 

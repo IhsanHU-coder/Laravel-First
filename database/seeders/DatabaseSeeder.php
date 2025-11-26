@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\ClassRoom;
 use App\Models\Teacher;
 use App\Models\Subject;
+use App\Models\Guardian;
 
 
 use Illuminate\Database\Seeder;
@@ -25,6 +26,8 @@ class DatabaseSeeder extends Seeder
         ClassRoom::factory(5)
             ->hasStudents()
             ->create();
+        
+        Guardian::factory()->count(10)->create();
         // Subject::factory(5)
         //     ->hasTeachers(1)
         //     ->create();

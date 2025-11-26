@@ -12,6 +12,12 @@
     use App\Http\Controllers\admin\DashboardController;
     use App\Http\Controllers\admin\AdminStudentController;
     use App\Http\Controllers\admin\AdminClassroomController;
+    use App\Http\Controllers\admin\AdminTeacherController;
+    use App\Http\Controllers\admin\AdminSubjectController;
+    use App\Http\Controllers\admin\AdminProfilController;
+    use App\Http\Controllers\admin\AdminKontakController;
+    use App\Http\Controllers\admin\AdminDashboardController;
+    use App\Http\Controllers\admin\AdminGuardianController;
     // use ..\views\home.blade.php;
 
     Route::get('/', [HomeController::class, 'dashboard']);
@@ -28,6 +34,9 @@
     Route::get('/dashboard', function () {
         return view('components.admin.dashboard');
     });
+    // Route::get('/profile', function () {
+    //     return view('components.admin.profile');
+    // });
     Route::get('/student2', function () {
         return view('components.admin.student');
     });
@@ -64,15 +73,23 @@
 
     Route::get('/classroom', [ClassroomController::class, 'index']);
 
-    Route::get('/admin/dashboard', [DashboardController::class, 'index']);
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index']);
+    Route::get('/admin/profile', [AdminProfilController::class, 'profil']);
+    Route::get('/admin/kontak', [AdminKontakController::class, 'kontak']);
+    // Route::get('/admin/guardian', [AdminGuardianController::class, 'index']);
+
+    Route::get('/admin/guardian', [AdminGuardianController::class, 'index'])->name('guardians.index');
+    Route::post('/admin/guardian', [AdminGuardianController::class, 'store'])->name('guardians.store');
+    Route::get('/admin/guardians/{guardian}/edit', [AdminGuardianController::class, 'edit'])->name('guardians.edit');
+    Route::put('/admin/guardians/{guardian}', [AdminGuardianController::class, 'update'])->name('guardians.update');
+    Route::delete('/admin/guardians/{guardian}', [AdminGuardianController::class, 'destroy'])->name('guardians.destroy');
+
+
 
     Route::get('/admin/student', [AdminStudentController::class, 'index'])->name('students.index');
     Route::post('admin/student', [AdminStudentController::class, 'store'])->name('students.store');
     Route::get('/admin/students/{student}/edit', [AdminStudentController::class, 'edit'])->name('students.edit');
-
     Route::put('/admin/students/{student}', [AdminStudentController::class, 'update'])->name('students.update');
-
-
     Route::delete('admin/students/{student}', [AdminStudentController::class, 'destroy'])->name('students.destroy');
 
 
@@ -83,6 +100,21 @@
     Route::put('/admin/classrooms/{classroom}', [AdminClassroomController::class, 'update'])->name('class_rooms.update');
     Route::delete('admin/classrooms/{classroom}', [AdminClassroomController::class, 'destroy'])->name('class_rooms.destroy');
 
+    Route::get('/admin/teacher', [AdminTeacherController::class, 'index'])->name('teachers.index');
+    Route::post('admin/teacher', [AdminTeacherController::class, 'store'])->name('teachers.store');
+    Route::get('/admin/teachers/{teacher}/edit', [AdminTeacherController::class, 'edit'])->name('teachers.edit');
+    Route::put('/admin/teachers/{teacher}', [AdminTeacherController::class, 'update'])->name('teachers.update');
+    Route::delete('admin/teachers/{teacher}', [AdminTeacherController::class, 'destroy'])->name('teachers.destroy');
+
+    
+    Route::get('/admin/subject', [AdminSubjectController::class, 'index'])->name('subjects.index');
+    Route::post('admin/subject', [AdminSubjectController::class, 'store'])->name('subjects.store');
+    Route::get('/admin/subjects/{subject}/edit', [AdminSubjectController::class, 'edit'])->name('subjects.edit');
+    Route::put('/admin/subjects/{subject}', [AdminSubjectController::class, 'update'])->name('subjects.update');
+    Route::delete('admin/subjects/{subject}', [AdminSubjectController::class, 'destroy'])->name('subjects.destroy');
+
+
+    
     // Route::prefix('/components')->name('/components.')->group(function () {
     //     // Dashboard admin
     //     Route::get('/adminDashboard', [HomeController::class, 'adminDashboard'])->name('admin.dashboard');

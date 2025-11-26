@@ -1,7 +1,7 @@
-<form action="{{ route('class_rooms.store') }}" method="POST" class="space-y-4">
+<form action="{{ route('subjects.store') }}" method="POST" class="space-y-4">
     @csrf
     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-        Add Classroom
+        Add Subject
     </h3>
 
     <div class="grid gap-4 sm:grid-cols-1">

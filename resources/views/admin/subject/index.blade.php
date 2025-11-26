@@ -6,9 +6,27 @@
             <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                 <div x-data="{
                     openAddModal: false,
+                    openEditModal:false,
                     openDeleteModal: false,
-                    deleteUrl: ''
+                    deleteUrl: '',
+                    editUrl:'',
+                    editName:'',
                     }">
+
+                    <div x-show="openEditModal" x-transition class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg w-full max-w-2xl p-6 relative">
+
+        <button
+            @click="openEditModal = false"
+            class="absolute top-2 right-3 text-gray-400 hover:text-gray-600"
+        >
+            ✕
+        </button>
+
+        @include('admin.subject.edit')
+
+    </div>
+</div>
 
                     <div
                         x-show="openDeleteModal"
@@ -35,7 +53,7 @@
                     </div>
                     
                     <x-admin.menu-table
-                        button-label="Add Classroom"
+                        button-label="Add Subject"
                         on-click="openAddModal = true"
                     />
 
@@ -51,7 +69,7 @@
                             </button>
 
                             {{-- Include form --}}
-                        @include('admin.classroom.create')
+                        @include('admin.subject.create')
 
                         </div>
                     </div>
@@ -62,24 +80,24 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-4 py-3">#</th>
-                                <th scope="col" class="px-4 py-3">Room Name</th>
-                                <th scope="col" class="px-4 py-3">Students List</th>
+                                <th scope="col" class="px-4 py-3">Teacher Name</th>
+                                <th scope="col" class="px-4 py-3">Subject</th>
                                 <th scope="col" class="px-4 py-3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($class_rooms as $classroom)
+                            @foreach ($subjects as $subject)
                             <tr class="border-b dark:border-gray-700">
                                 <td class="px-4 py-3">{{$loop->iteration}}</td>
-                                <td class="px-4 py-3">{{ $classroom->name }}</td>
-                                <td class="px-4 py-3">
-                                    @foreach ($classroom->students as $student)
-                                        {{ $student->name }} <br>
+                                <td class="px-4 py-2">
+                                    @foreach ($subject ->teachers as $teacher)
+                                    {{ $teacher->nama }}</td>
                                     @endforeach
-                                </td>
+                                {{-- <td class="px-4 py-2">{{ $subject["name"] }}</td> --}}
+                                <td class="px-4 py-2">{{ $subject->name }}</td>
                                 <td class="px-4 py-3 flex items-center justify-end">
                                     @php
-                                        $dropdownId = 'classroom-dropdown-' . $classroom->id;
+                                        $dropdownId = 'subject-dropdown-' . $subject->id;
                                         $buttonId = $dropdownId . '-button';
                                     @endphp
 
@@ -94,8 +112,18 @@
                                                 <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
                                             </li> --}}
                                             <li>
-                                                <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                            </li>
+<button
+    @click="
+        openEditModal = true;
+        {{-- editName = '{{ $subject->name }}';
+        editUrl = '{{ route('subjects.update', $subject->id) }}'; --}}
+        editUrl = '{{ route('subjects.update', $subject->id) }}';
+        editName = {{ json_encode($subject->name) }};   
+    "
+    class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+>
+    Edit
+</button>                                            </li>
                                         </ul>
                                         {{-- <div class="py-1">
                                             <button
@@ -117,7 +145,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                    @include('admin.classroom.delete')
+                    @include('admin.subject.delete')
                 </div>
                 
             </div>

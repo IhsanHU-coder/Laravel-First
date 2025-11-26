@@ -7,11 +7,77 @@
                 <div x-data="{
                     openAddModal: false,
                     openDeleteModal: false,
-                    deleteUrl: ''
+                    openEditModal:false,
+                    editUrl:'',
+                    editName:'',
+                    deleteUrl: '',
+                    editPhone:'',
+                    editSubject:'',
+                    editAddress:'',
                     }">
+                     <!-- MODAL EDIT -->
+<div x-show="openEditModal" x-transition
+    class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg w-full max-w-2xl p-6 relative">
+
+        <button @click="openEditModal = false"
+            class="absolute top-2 right-3 text-gray-400 hover:text-gray-600">
+            ✕
+        </button>
+
+        <form :action="editUrl" method="POST" class="space-y-4">
+            @csrf
+            @method('PUT')
+
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Edit Teacher</h3>
+
+            <div class="grid gap-4 sm:grid-cols-1">
+
+                <div>
+                    <label class="block mb-2 text-sm font-medium">Name</label>
+                    <input type="text" name="nama" x-model="editName"
+                        class="w-full border rounded-lg p-2 dark:bg-gray-700 dark:text-white">
+                </div>
+
+                <div>
+                    <label class="block mb-2 text-sm font-medium">Subject</label>
+                    <select name="subject_id" x-model="editSubject"
+                        class="w-full border rounded-lg p-2 dark:bg-gray-700 dark:text-white">
+                        @foreach ($subjects as $subject)
+                            <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block mb-2 text-sm font-medium">Phone</label>
+                    <input type="text" name="phone" x-model="editPhone"
+                        class="w-full border rounded-lg p-2 dark:bg-gray-700 dark:text-white">
+                </div>
+
+                <div>
+                    <label class="block mb-2 text-sm font-medium">Address</label>
+                    <input type="text" name="address" x-model="editAddress"
+                        class="w-full border rounded-lg p-2 dark:bg-gray-700 dark:text-white">
+                </div>
+
+            </div>
+
+            <div class="flex justify-end space-x-2">
+                <button type="submit"
+                    class="px-4 py-2 bg-blue-700 text-white rounded-md hover:bg-blue-800">
+                    Update
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
 
                     <x-admin.menu-table
-                        button-label="Add Student"
+                        button-label="Add Teacher"
                         on-click="openAddModal = true"
                     />
 
@@ -28,10 +94,12 @@
                             </button>
 
 
-                            @include('admin.student.create', ['class_rooms' => $class_rooms])
+                            @include('admin.teacher.create', ['subjects' => $subjects])
 
                         </div>
                     </div>
+
+                   
                     {{-- @include('admin.student.delete') --}}
                     {{-- </div> --}}
 
@@ -41,25 +109,25 @@
                             <tr>
                                 <th scope="col" class="px-4 py-3">ID</th>
                                 <th scope="col" class="px-4 py-3">Nama</th>
-                                <th scope="col" class="px-4 py-3">Birthday</th>
-                                <th scope="col" class="px-4 py-3">Class</th>
-                                <th scope="col" class="px-4 py-3">Email</th>
+                                <th scope="col" class="px-4 py-3">Subject Name</th>
+                                <th scope="col" class="px-4 py-3">Phone</th>
                                 <th scope="col" class="px-4 py-3">Address</th>
                                 <th scope="col" class="px-4 py-3">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($students as $student)
+                            @foreach ($teachers as $teacher)
                             <tr class="border-b dark:border-gray-700">
-                                <td class="px-4 py-3">{{$loop->iteration}}</td>
-                                <td class="px-4 py-3">{{ $student->name  }}</td>
-                                <td class="px-4 py-3">{{ $student->birthday  }}</td>
-                                <td class="px-4 py-3">{{ $student->classroom->name }}</td>
-                                <td class="px-4 py-3">{{ $student->email }}</td>
-                                <td class="px-4 py-3">{{ $student->address }}</td>
+                                
+                                <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                                <td class="px-4 py-3">{{ $teacher->nama}}</td>
+                                <td class="px-4 py-3">{{ $teacher->subject->name}}</td>
+                                <td class="px-4 py-3">{{ $teacher->phone }}</td>
+                                <td class="px-4 py-3">{{ $teacher->address }}</td>
+                                
                                 <td class="px-4 py-3 flex items-center justify-end">
                                     @php
-                                        $dropdownId = 'student-dropdown-' . $student->id;
+                                        $dropdownId = 'teacher-dropdown-' . $teacher->id;
                                         $buttonId = $dropdownId . '-button';
                                     @endphp
 
@@ -74,7 +142,19 @@
                                                 <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
                                             </li> --}}
                                             <li>
-                                                <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                                <button
+    @click="
+        openEditModal = true;
+        editUrl = '{{ route('teachers.update', $teacher->id) }}';
+        editName = @js($teacher->nama);
+        editPhone = @js($teacher->phone);
+        editAddress = @js($teacher->address);
+        editSubject = @js($teacher->subject_id);
+    "
+    class="block w-full text-left py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+    Edit
+</button>
+
                                             </li>
                                         </ul>
                                         <div class="py-1">
@@ -82,7 +162,7 @@
                                                 @click="
                                                 openDeleteModal = true;
                                                 
-                                                deleteUrl = '{{ route('students.destroy', $student->id) }}';
+                                                deleteUrl = '{{ route('teachers.destroy', $teacher->id) }}';
                                                     
                                                 "
                                                 class="block w-full text-left py-2 px-4 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
@@ -101,9 +181,9 @@
                     </div>
 
                     <div class="p-4">
-                    {{ $students->links() }}
+                    {{-- {{ $teachers->links() }} --}}
                     </div>
-                    @include('admin.student.delete')
+                    @include('admin.teacher.delete')
             </div>
         </div>
     </section>
