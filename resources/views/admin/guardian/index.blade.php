@@ -131,12 +131,13 @@
                 </table>
             </div>
 
-            <div class="mt-4">
-                {{ $guardians->links() }}
-            </div>
+            
             @include('admin.guardian.delete')
 
         </div>
+        <div class="mt-4">
+                {{ $guardians->links() }}
+            </div>
     </section>
 
     {{-- MODAL ADD / EDIT --}}

@@ -11,18 +11,39 @@ class AdminGuardianController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        // $guardians = guardian::all();
-        $guardians = Guardian::paginate(10);
-                // $students = Student::with('classroom')->paginate(10);
+    // public function index()
+    // {
+    //     // $guardians = guardian::all();
+    //     $guardians = Guardian::paginate(5);
+    //             // $students = Student::with('classroom')->paginate(10);
 
 
-        return view('admin.guardian.index', [
+    //     return view('admin.guardian.index', [
+    //     'title' => 'guardian',
+    //     'guardians' => $guardians
+    //     ]);
+    // }
+
+    public function index(Request $request)
+{
+    $guardians = Guardian::when(trim($request->search) !== '', function ($query) use ($request) {
+            $search = $request->search;
+
+            $query->where('nama', 'like', "%{$search}%")
+                  ->orWhere('job', 'like', "%{$search}%")
+                  ->orWhere('phone', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('address', 'like', "%{$search}%");
+        })
+        ->paginate(5)
+        ->withQueryString();
+
+    return view('admin.guardian.index', [
         'title' => 'guardian',
         'guardians' => $guardians
-        ]);
-    }
+    ]);
+}
+
 
     /**
      * Show the form for creating a new resource.

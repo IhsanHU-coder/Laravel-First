@@ -12,19 +12,46 @@ class AdminStudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $students = Student::with('classroom')->paginate(10);
-        $class_rooms = ClassRoom::all();
-        // $title = 'Student List';
+    // public function index()
+    // {
+    //     $students = Student::with('classroom')->paginate(5);
+    //     $class_rooms = ClassRoom::all();
+    //     // $title = 'Student List';
         
 
-        return view('admin.student.index', [
+    //     return view('admin.student.index', [
+    //     'title' => 'students',
+    //     'students' => $students,
+    //     'class_rooms' => $class_rooms
+    //     ]);
+    // }
+
+    public function index(Request $request)
+{
+    $students = Student::with('classroom')
+        ->when(trim($request->search) !== '', function ($query) use ($request) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%")
+                  ->orWhere('address', 'like', "%{$search}%")
+                  ->orWhereHas('classroom', function ($cq) use ($search) {
+                      $cq->where('name', 'like', "%{$search}%");
+                  });
+            });
+        })
+        ->paginate(5)
+        ->withQueryString();
+
+    $class_rooms = ClassRoom::all();
+
+    return view('admin.student.index', [
         'title' => 'students',
         'students' => $students,
         'class_rooms' => $class_rooms
-        ]);
-    }
+    ]);
+}
 
     
 

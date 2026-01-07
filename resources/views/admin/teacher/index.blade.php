@@ -76,6 +76,8 @@
 </div>
 
 
+
+
                     <x-admin.menu-table
                         button-label="Add Teacher"
                         on-click="openAddModal = true"
@@ -181,7 +183,7 @@
                     </div>
 
                     <div class="p-4">
-                    {{-- {{ $teachers->links() }} --}}
+                        {{ $teachers->links() }}
                     </div>
                     @include('admin.teacher.delete')
             </div>

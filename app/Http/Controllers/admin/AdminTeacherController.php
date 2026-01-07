@@ -9,19 +9,42 @@ use App\Models\Teacher;
 
 class AdminTeacherController extends Controller
 {
-    public function index()
-    {
-        //  $teachers = Teacher::all();
-         $teachers = Teacher::with('subject')->paginate(10);
-         $subjects = Subject::all();
-        //$teachers = Teacher::with('subject')->get();
+    // public function index()
+    // {
+    //     //  $teachers = Teacher::all();
+    //      $teachers = Teacher::with('subject')->paginate(5);
+    //      $subjects = Subject::all();
+    //     //$teachers = Teacher::with('subject')->get();
 
-        return view('admin.teacher.index', [
+    //     return view('admin.teacher.index', [
+    //     'title' => 'teacher',
+    //     'subjects' => $subjects,
+    //     'teachers' => $teachers
+    //     ]);
+    // }
+
+public function index(Request $request)
+{
+    $teachers = Teacher::with('subject')
+        ->when(trim($request->search) !== '', function ($query) use ($request) {
+            $query->where(function ($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->search . '%')
+                  ->orWhere('phone', 'like', '%' . $request->search . '%')
+                  ->orWhere('address', 'like', '%' . $request->search . '%');
+            });
+        })
+        ->paginate(5)
+        ->withQueryString();
+
+    return view('admin.teacher.index', [
         'title' => 'teacher',
-        'subjects' => $subjects,
+        'subjects' => Subject::all(),
         'teachers' => $teachers
-        ]);
-    }
+    ]);
+}
+
+
+
 
     public function store(Request $request)
     {

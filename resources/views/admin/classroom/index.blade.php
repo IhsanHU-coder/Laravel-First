@@ -155,9 +155,17 @@
                             </tr>
                             @endforeach
                         </tbody>
+                        
                     </table>
+                     {{-- {{ $class_rooms->links() }} --}}
+                     <div class="p-4">
+                        {{ $class_rooms->links() }}
+                    </div>
                     @include('admin.classroom.delete')
+                    
+                    
                 </div>
+                
                 
             </div>
         </div>

@@ -9,22 +9,43 @@ use App\Http\Controllers\Controller;
 
 class AdminClassRoomController extends Controller
 {
-    public function index()
-    {
-         $class_rooms = ClassRoom::with('students')->get();
-        //$class_rooms = ClassRoom::with('students')->get();
-        // $title = 'Classroom List';
+    // public function index()
+    // {
+    //      $class_rooms = ClassRoom::with('students')->paginate(5);
+    //     //$class_rooms = ClassRoom::with('students')->get();
+    //     // $title = 'Classroom List';
         
 
-        // return view('admin.classroom.index', [
-        // 'title' => 'class_rooms',
-        // 'class_rooms' => $class_rooms
-        // ]);
-        return view('admin.classroom.index',[
-            'title' => 'class_rooms',
-            'class_rooms' => $class_rooms
-        ]);
-    }
+    //     // return view('admin.classroom.index', [
+    //     // 'title' => 'class_rooms',
+    //     // 'class_rooms' => $class_rooms
+    //     // ]);
+    //     return view('admin.classroom.index',[
+    //         'title' => 'class_rooms',
+    //         'class_rooms' => $class_rooms
+    //     ]);
+    // }
+
+    public function index(Request $request)
+{
+    $class_rooms = ClassRoom::with('students')
+        ->when(trim($request->search) !== '', function ($query) use ($request) {
+            $search = $request->search;
+
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhereHas('students', function ($sq) use ($search) {
+                      $sq->where('name', 'like', "%{$search}%");
+                  });
+        })
+        ->paginate(5)
+        ->withQueryString();
+
+    return view('admin.classroom.index', [
+        'title' => 'class_rooms',
+        'class_rooms' => $class_rooms
+    ]);
+}
+
 
     public function store(Request $request)
     {

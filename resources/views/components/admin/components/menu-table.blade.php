@@ -5,7 +5,9 @@
   >
     {{-- Search input --}}
     <div class="w-full md:w-1/2">
-      <form class="flex items-center">
+      {{-- <form class="flex items-center"> --}}
+        <form method="GET" action="{{ url()->current() }}" class="flex items-center">
+
         <label for="simple-search" class="sr-only">Search</label>
         <div class="relative w-full">
           <div
@@ -21,8 +23,11 @@
                 clip-rule="evenodd" />
             </svg>
           </div>
+          <form method="GET" action="{{ route('teachers.index') }}">
           <input
             type="text"
+            name="search"
+            value="{{ request('search') }}"
             id="simple-search"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm
                    rounded-lg focus:ring-primary-500 focus:border-primary-500
@@ -30,8 +35,10 @@
                    dark:placeholder-gray-400 dark:text-white
                    dark:focus:ring-primary-500 dark:focus:border-primary-500"
             placeholder="Search"
+            oninput="if(this.value===''){ this.form.submit(); }"
             required
           />
+          </form>
         </div>
       </form>
     </div>

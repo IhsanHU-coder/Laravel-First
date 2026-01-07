@@ -7,16 +7,37 @@ use App\Models\Subject;
 
 class AdminSubjectController extends Controller
 {
-    public function index()
-    {
-        // $subjects = Subject::all();
-        $subjects = Subject::with('teachers')->get();
+    // public function index()
+    // {
+    //     // $subjects = Subject::all();
+    //     $subjects = Subject::with('teachers')->paginate(5);
         
-        return view('admin.subject.index', [
+    //     return view('admin.subject.index', [
+    //     'title' => 'subject',
+    //     'subjects' => $subjects
+    //     ]);
+    // }
+
+    public function index(Request $request)
+{
+    $subjects = Subject::with('teachers')
+        ->when(trim($request->search) !== '', function ($query) use ($request) {
+            $search = $request->search;
+
+            $query->where('name', 'like', "%{$search}%")
+                  ->orWhereHas('teachers', function ($tq) use ($search) {
+                      $tq->where('name', 'like', "%{$search}%");
+                  });
+        })
+        ->paginate(5)
+        ->withQueryString();
+
+    return view('admin.subject.index', [
         'title' => 'subject',
         'subjects' => $subjects
-        ]);
-    }
+    ]);
+}
+
 
     public function store(Request $request)
     {
