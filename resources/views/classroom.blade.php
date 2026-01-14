@@ -1,4 +1,4 @@
-<x-admin.components.layout>
+<x-layout>
   <x-slot:judul>Classroom</x-slot:judul>
 
   <h1 class="text-2xl font-bold mb-4">Daftar Classroom</h1>
@@ -24,4 +24,4 @@
       @endforeach
     </tbody>
   </table>
-</x-admin.components.layout>
+</x-layout>

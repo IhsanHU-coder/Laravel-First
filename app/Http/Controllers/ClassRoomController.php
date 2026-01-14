@@ -15,7 +15,7 @@ class ClassRoomController extends Controller
         
 
         return view('classroom', [
-        'judul' => 'classroom',
+        'title' => 'classroom',
         'class_rooms' => $class_rooms
         ]);
     }

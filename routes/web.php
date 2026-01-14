@@ -9,6 +9,7 @@
     use App\Http\Controllers\ClassroomController;
     use App\Http\Controllers\TeacherController;
     use App\Http\Controllers\SubjectController;
+    use App\Http\Controllers\LoginController;
     use App\Http\Controllers\admin\DashboardController;
     use App\Http\Controllers\admin\AdminStudentController;
     use App\Http\Controllers\admin\AdminClassroomController;
@@ -29,10 +30,15 @@
     Route::get('/classroom', [ClassroomController::class, 'index']);
     Route::get('/teacher', [TeacherController::class, 'index']);
     Route::get('/subject', [SubjectController::class, 'index']);
-    Route::get('/subject', [SubjectController::class, 'index']);
+    Route::get('/login', [LoginController::class, 'index']);
+    
 
     Route::get('/dashboard', function () {
         return view('components.admin.dashboard');
+    });
+
+    Route::get('/login', function () {
+        return view('login');
     });
     // Route::get('/profile', function () {
     //     return view('components.admin.profile');
