@@ -13,8 +13,8 @@
 
 <body class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-700">
   {{-- <body class="antialiased bg-gray-50 dark:bg-gray-900"> --}}
-  <x-admin.components.navbar />
-  <main class="p-4 md:ml-0 h-1 pt-0">
+  {{-- <x-admin.components.navbar /> --}}
+  <main>
     {{ $slot }}
   </main>
 </body>

@@ -1,4 +1,4 @@
-    <?php
+<?php
 
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\ProfilController;
@@ -9,7 +9,7 @@
     use App\Http\Controllers\ClassroomController;
     use App\Http\Controllers\TeacherController;
     use App\Http\Controllers\SubjectController;
-    use App\Http\Controllers\LoginController;
+    use App\Http\Controllers\AuthController;
     use App\Http\Controllers\admin\DashboardController;
     use App\Http\Controllers\admin\AdminStudentController;
     use App\Http\Controllers\admin\AdminClassroomController;
@@ -30,22 +30,90 @@
     Route::get('/classroom', [ClassroomController::class, 'index']);
     Route::get('/teacher', [TeacherController::class, 'index']);
     Route::get('/subject', [SubjectController::class, 'index']);
-    Route::get('/login', [LoginController::class, 'index']);
+    // view login
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+
+// proses login
+    Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+
+// logout
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     
 
     Route::get('/dashboard', function () {
         return view('components.admin.dashboard');
     });
 
-    Route::get('/login', function () {
-        return view('login');
-    });
+    Route::get('/admin/dashboard', function () {
+    return view('components.admin.dashboard');
+})->middleware('auth');
+
+Route::post('/login', [AuthController::class, 'login'])
+    ->name('login.post');
+
+    // Route::get('/login', function () {
+    //     return view('auth.login');
+    // });
     // Route::get('/profile', function () {
     //     return view('components.admin.profile');
     // });
     Route::get('/student2', function () {
         return view('components.admin.student');
     });
+
+    Route::prefix('admin')
+    ->middleware('auth')
+    ->group(function () {
+
+        Route::get('/dashboard', [AdminDashboardController::class, 'index'])
+            ->name('admin.dashboard');
+
+        Route::get('/profil', [AdminProfilController::class, 'profil']);
+        Route::get('/kontak', [AdminKontakController::class, 'kontak']);
+
+        Route::resource('student', AdminStudentController::class);
+        Route::resource('teacher', AdminTeacherController::class);
+        Route::resource('classroom', AdminClassroomController::class);
+        Route::resource('guardian', AdminGuardianController::class);
+        Route::resource('subject', AdminSubjectController::class);
+        Route::get('/admin/dashboard', [AdminDashboardController::class, 'index']);
+    Route::get('/admin/profile', [AdminProfilController::class, 'profil']);
+    Route::get('/admin/kontak', [AdminKontakController::class, 'kontak']);
+    // Route::get('/admin/guardian', [AdminGuardianController::class, 'index']);
+
+    Route::get('/guardian', [AdminGuardianController::class, 'index'])->name('guardians.index');
+    Route::post('/guardian', [AdminGuardianController::class, 'store'])->name('guardians.store');
+    Route::get('/guardians/{guardian}/edit', [AdminGuardianController::class, 'edit'])->name('guardians.edit');
+    Route::put('/guardians/{guardian}', [AdminGuardianController::class, 'update'])->name('guardians.update');
+    Route::delete('/guardians/{guardian}', [AdminGuardianController::class, 'destroy'])->name('guardians.destroy');
+
+
+    Route::get('/student', [AdminStudentController::class, 'index'])->name('students.index');
+    Route::post('/student', [AdminStudentController::class, 'store'])->name('students.store');
+    Route::get('/students/{student}/edit', [AdminStudentController::class, 'edit'])->name('students.edit');
+    Route::put('/students/{student}', [AdminStudentController::class, 'update'])->name('students.update');
+    Route::delete('/students/{student}', [AdminStudentController::class, 'destroy'])->name('students.destroy');
+
+
+    Route::get('/classrooms', [AdminClassroomController::class, 'index'])->name('class_rooms.index');
+    Route::post('/classrooms', [AdminClassroomController::class, 'store'])->name('class_rooms.store');
+    Route::get('/classrooms/{classroom}/edit', [AdminClassroomController::class, 'edit'])->name('class_rooms.edit');
+    Route::put('/classrooms/{classroom}', [AdminClassroomController::class, 'update'])->name('class_rooms.update');
+    Route::delete('/classrooms/{classroom}', [AdminClassroomController::class, 'destroy'])->name('class_rooms.destroy');
+    Route::get('/teacher', [AdminTeacherController::class, 'index'])->name('teachers.index');
+    Route::post('/teacher', [AdminTeacherController::class, 'store'])->name('teachers.store');
+    Route::get('/teachers/{teacher}/edit', [AdminTeacherController::class, 'edit'])->name('teachers.edit');
+    Route::put('/teachers/{teacher}', [AdminTeacherController::class, 'update'])->name('teachers.update');
+    Route::delete('/teachers/{teacher}', [AdminTeacherController::class, 'destroy'])->name('teachers.destroy');
+
+    Route::get('/subject', [AdminSubjectController::class, 'index'])->name('subjects.index');
+    Route::post('/subject', [AdminSubjectController::class, 'store'])->name('subjects.store');
+    Route::get('/subjects/{subject}/edit', [AdminSubjectController::class, 'edit'])->name('subjects.edit');
+    Route::put('/subjects/{subject}', [AdminSubjectController::class, 'update'])->name('subjects.update');
+    Route::delete('/subjects/{subject}', [AdminSubjectController::class, 'destroy'])->name('subjects.destroy');
+
+    });
+
 
 
     // Route::resource('student', StudentController::class);
@@ -79,47 +147,7 @@
 
     Route::get('/classroom', [ClassroomController::class, 'index']);
 
-    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index']);
-    Route::get('/admin/profile', [AdminProfilController::class, 'profil']);
-    Route::get('/admin/kontak', [AdminKontakController::class, 'kontak']);
-    // Route::get('/admin/guardian', [AdminGuardianController::class, 'index']);
-
-    Route::get('/admin/guardian', [AdminGuardianController::class, 'index'])->name('guardians.index');
-    Route::post('/admin/guardian', [AdminGuardianController::class, 'store'])->name('guardians.store');
-    Route::get('/admin/guardians/{guardian}/edit', [AdminGuardianController::class, 'edit'])->name('guardians.edit');
-    Route::put('/admin/guardians/{guardian}', [AdminGuardianController::class, 'update'])->name('guardians.update');
-    Route::delete('/admin/guardians/{guardian}', [AdminGuardianController::class, 'destroy'])->name('guardians.destroy');
-
-
-
-    Route::get('/admin/student', [AdminStudentController::class, 'index'])->name('students.index');
-    Route::post('admin/student', [AdminStudentController::class, 'store'])->name('students.store');
-    Route::get('/admin/students/{student}/edit', [AdminStudentController::class, 'edit'])->name('students.edit');
-    Route::put('/admin/students/{student}', [AdminStudentController::class, 'update'])->name('students.update');
-    Route::delete('admin/students/{student}', [AdminStudentController::class, 'destroy'])->name('students.destroy');
-
-
-
-    Route::get('/admin/classrooms', [AdminClassroomController::class, 'index'])->name('class_rooms.index');
-    Route::post('admin/classrooms', [AdminClassroomController::class, 'store'])->name('class_rooms.store');
-    Route::get('/admin/classrooms/{classroom}/edit', [AdminClassroomController::class, 'edit'])->name('class_rooms.edit');
-    Route::put('/admin/classrooms/{classroom}', [AdminClassroomController::class, 'update'])->name('class_rooms.update');
-    Route::delete('admin/classrooms/{classroom}', [AdminClassroomController::class, 'destroy'])->name('class_rooms.destroy');
-
-    Route::get('/admin/teacher', [AdminTeacherController::class, 'index'])->name('teachers.index');
-    Route::post('admin/teacher', [AdminTeacherController::class, 'store'])->name('teachers.store');
-    Route::get('/admin/teachers/{teacher}/edit', [AdminTeacherController::class, 'edit'])->name('teachers.edit');
-    Route::put('/admin/teachers/{teacher}', [AdminTeacherController::class, 'update'])->name('teachers.update');
-    Route::delete('admin/teachers/{teacher}', [AdminTeacherController::class, 'destroy'])->name('teachers.destroy');
-
     
-    Route::get('/admin/subject', [AdminSubjectController::class, 'index'])->name('subjects.index');
-    Route::post('admin/subject', [AdminSubjectController::class, 'store'])->name('subjects.store');
-    Route::get('/admin/subjects/{subject}/edit', [AdminSubjectController::class, 'edit'])->name('subjects.edit');
-    Route::put('/admin/subjects/{subject}', [AdminSubjectController::class, 'update'])->name('subjects.update');
-    Route::delete('admin/subjects/{subject}', [AdminSubjectController::class, 'destroy'])->name('subjects.destroy');
-
-
     
     // Route::prefix('/components')->name('/components.')->group(function () {
     //     // Dashboard admin

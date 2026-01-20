@@ -34,6 +34,11 @@ class DatabaseSeeder extends Seeder
         // Teacher::factory(5)
         // ->hasSubject(1)
         // ->create();
+        User::factory()->create([
+            'name' => 'Admin',
+            'email' => 'admin@mail.com',
+            'password' => 'password',
+        ]);
 
     }
 }
